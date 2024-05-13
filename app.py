@@ -248,14 +248,6 @@ def classification_main(df, importance_threshold, accuracy_threshold):
         return dt_classifier,df_cls
 
 
-import pandas as pd
-import streamlit as st
-import joblib
-import base64
-
-from classification_module import classification_main
-from regression_module import regression_main
-
 def streamlit_main():
     st.title("Teachable Machine V2")
 
