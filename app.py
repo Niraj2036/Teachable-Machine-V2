@@ -33,8 +33,30 @@ def main():
 )
 
     with col2:
+        st.write(
+            '''
+            <style>
+                .custo-button {
+                padding: 10px 20px;
+                background-color: white;
+                color: red;
+                border: 2px solid red;
+                border-radius: 5px;
+                cursor: pointer;
+                }
+                .custo-button:hover {
+                background-color: red;
+                color: white;
+                border-color: white;
+                }
+            </style>
+            <a href="https://regression-teachable-machine.streamlit.app" style="text-decoration: none; color: red;">
+            <button class="custo-button">Regression</button>
+            </a>
+            ''', 
+            unsafe_allow_html=True
+)
         
-        st.write('<a href="https://regression-teachable-machine.streamlit.app" style="text-decoration: none; color: inherit;"><button style="padding: 10px 20px; background-color: #008CBA; color: white; border: none; border-radius: 5px; cursor: pointer;">Regression</button></a>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
