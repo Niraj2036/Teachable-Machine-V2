@@ -7,22 +7,21 @@ def main():
     # Classification and Regression buttons with embedded URLs
     col1, col2 = st.columns(2)
     with col1:
-        
         st.write(
             '''
             <style>
                 .custom-button {
-                padding: 10px 20px;
-                background-color: white;
-                color: red;
-                border: 2px solid red;
-                border-radius: 5px;
-                cursor: pointer;
+                    padding: 10px 20px;
+                    background-color: white;
+                    color: red;
+                    border: 2px solid red;
+                    border-radius: 5px;
+                    cursor: pointer;
                 }
                 .custom-button:hover {
-                background-color: red;
-                color: white;
-                border-color: white;
+                    background-color: red;
+                    color: white;
+                    border-color: white;
                 }
             </style>
             <a href="https://classification-teachable-machine.streamlit.app" style="text-decoration: none; color: red;">
@@ -30,33 +29,32 @@ def main():
             </a>
             ''', 
             unsafe_allow_html=True
-)
+        )
 
     with col2:
         st.write(
             '''
             <style>
-                .custo-button {
-                padding: 10px 20px;
-                background-color: white;
-                color: red;
-                border: 2px solid red;
-                border-radius: 5px;
-                cursor: pointer;
+                .custom-button {
+                    padding: 10px 20px;
+                    background-color: white;
+                    color: red;
+                    border: 2px solid red;
+                    border-radius: 5px;
+                    cursor: pointer;
                 }
-                .custo-button:hover {
-                background-color: red;
-                color: white;
-                border-color: white;
+                .custom-button:hover {
+                    background-color: red;
+                    color: white;
+                    border-color: white;
                 }
             </style>
             <a href="https://regression-teachable-machine.streamlit.app" style="text-decoration: none; color: red;">
-            <button class="custo-button">Regression</button>
+            <button class="custom-button">Regression</button>
             </a>
             ''', 
             unsafe_allow_html=True
-)
-        
+        )
 
 if __name__ == "__main__":
     main()
