@@ -182,7 +182,7 @@ def classification_app():
                 b64 = base64.b64encode(csv.encode()).decode()
                 href = f'<a href="data:file/csv;base64,{b64}" download="processed_data.csv">Download processed data</a>'
                 st.markdown(href, unsafe_allow_html=True)
-        def classification_app():
+def classification_app():
     st.title("Classification")
 
     # Upload CSV file
