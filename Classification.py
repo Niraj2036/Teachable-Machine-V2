@@ -178,6 +178,7 @@ def classification_app():
                 data=open("trained_model.pkl", "rb"),
                 file_name="trained_model.pkl",
                 mime="application/octet-stream"
+                prevent_duplicate_clicks=True  # Prevent duplicate clicks
             )
 
             # Check if model training is completed before showing the download buttons
