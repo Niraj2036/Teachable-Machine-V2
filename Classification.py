@@ -188,8 +188,5 @@ def classification_app():
                 href = f'<a href="data:file/csv;base64,{b64}" download="processed_data.csv">Download processed data</a>'
                 st.markdown(href, unsafe_allow_html=True)
 
-
-classification_app()
-
 if __name__ == "__main__":
     classification_app()
