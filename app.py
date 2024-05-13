@@ -248,38 +248,62 @@ def classification_main(df, importance_threshold, accuracy_threshold):
         return dt_classifier,df_cls
 
 
+import pandas as pd
+import streamlit as st
+import joblib
+import base64
+
+from classification_module import classification_main
+from regression_module import regression_main
+
 def streamlit_main():
     st.title("Teachable Machine V2")
 
     # Upload CSV file
     uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
+    
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
 
         # Task selection
         task = st.radio("Select Task:", ("Regression", "Classification"))
 
-        # Perform selected task
         if task == "Classification":
-            model,processed_df= classification_main(df, 0.01, 0.001)
-        elif task == "Regression":
-            model,processed_df =regression_main(df, 0.01, 0.001)
+            if st.button("Start Classification"):
+                model, processed_df = classification_main(df, 0.01, 0.001)
+                st.write("Model trained successfully!")
+                st.write("Download the trained model:")
+                model_filename = "trained_model.pkl"
+                joblib.dump(model, model_filename)
+                st.download_button(
+                    label="Download Model",
+                    data=open("trained_model.pkl", "rb"),
+                    file_name="trained_model.pkl",
+                    mime="application/octet-stream"
+                )
+                csv = processed_df.to_csv(index=False)
+                b64 = base64.b64encode(csv.encode()).decode()
+                href = f'<a href="data:file/csv;base64,{b64}" download="processed_data.csv">Download processed data</a>'
+                st.markdown(href, unsafe_allow_html=True)
 
-        st.write("Model trained successfully!")
-        st.write("Download the trained model:")
-        model_filename = "trained_model.pkl"
-        joblib.dump(model, model_filename)
-# Use the saved file for download button
-        st.download_button(
-            label="Download Model",
-            data=open("trained_model.pkl", "rb"),
-            file_name="trained_model.pkl",
-            mime="application/octet-stream"
-        )
-        csv = processed_df.to_csv(index=False)
-        b64 = base64.b64encode(csv.encode()).decode()
-        href = f'<a href="data:file/csv;base64,{b64}" download="processed_data.csv">Download processed data</a>'
-        st.markdown(href, unsafe_allow_html=True)
+        elif task == "Regression":
+            if st.button("Start Regression"):
+                model, processed_df = regression_main(df, 0.01, 0.001)
+                st.write("Model trained successfully!")
+                st.write("Download the trained model:")
+                model_filename = "trained_model.pkl"
+                joblib.dump(model, model_filename)
+                st.download_button(
+                    label="Download Model",
+                    data=open("trained_model.pkl", "rb"),
+                    file_name="trained_model.pkl",
+                    mime="application/octet-stream"
+                )
+                csv = processed_df.to_csv(index=False)
+                b64 = base64.b64encode(csv.encode()).decode()
+                href = f'<a href="data:file/csv;base64,{b64}" download="processed_data.csv">Download processed data</a>'
+                st.markdown(href, unsafe_allow_html=True)
+
 
 
 if __name__ == "__main__":
