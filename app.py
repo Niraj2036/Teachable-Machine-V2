@@ -257,7 +257,7 @@ def streamlit_main():
         df = pd.read_csv(uploaded_file)
 
         # Task selection
-        task = st.radio("Select Task:", ("Classification", "Regression"))
+        task = st.radio("Select Task:", ("Regression", "Classification"))
 
         # Perform selected task
         if task == "Classification":
