@@ -267,7 +267,8 @@ def streamlit_main():
 
         st.write("Model trained successfully!")
         st.write("Download the trained model:")
-
+        model_filename = "trained_model.pkl"
+        joblib.dump(model, model_filename)
 # Use the saved file for download button
         st.download_button(
             label="Download Model",
