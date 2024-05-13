@@ -168,21 +168,19 @@ def classification_app():
             model, processed_df = classification_main(df, 0.01, 0.001)
             st.write("Model trained successfully!")
             st.session_state.model_trained = True
-            
-            # Download trained model button
-            st.write("Download the trained model:")
-            model_filename = "trained_model.pkl"
-            joblib.dump(model, model_filename)
-            st.download_button(
-                label="Download Model",
-                data=open("trained_model.pkl", "rb"),
-                file_name="trained_model.pkl",
-                mime="application/octet-stream",
-                prevent_duplicate_clicks=True  # Prevent duplicate clicks
-            )
-
-            # Check if model training is completed before showing the download buttons
             if model is not None and processed_df is not None:
+                # Download trained model button
+                st.write("Download the trained model:")
+                model_filename = "trained_model.pkl"
+                joblib.dump(model, model_filename)
+                st.download_button(
+                    label="Download Model",
+                    data=open("trained_model.pkl", "rb"),
+                    file_name="trained_model.pkl",
+                    mime="application/octet-stream"
+                )
+
+                # Check if model training is completed before showing the download buttons
                 # Download processed data button
                 csv = processed_df.to_csv(index=False)
                 b64 = base64.b64encode(csv.encode()).decode()
