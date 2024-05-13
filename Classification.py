@@ -188,9 +188,6 @@ def classification_app():
                 href = f'<a href="data:file/csv;base64,{b64}" download="processed_data.csv">Download processed data</a>'
                 st.markdown(href, unsafe_allow_html=True)
 
-    # Remove file if model is trained and uploaded file is present
-    if st.session_state.model_trained and uploaded_file:
-        st.warning("Please remove the uploaded file to continue.")
 
 classification_app()
 
