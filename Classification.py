@@ -176,9 +176,11 @@ def classification_app():
             )
 
             # Download processed data button
-            csv = processed_df.to_csv(index=False)
-            b64 = base64.b64encode(csv.encode()).decode()
-            href = f'<a href="data:file/csv;base64,{b64}" download="processed_data.csv">Download processed data</a>'
-            st.markdown(href, unsafe_allow_html=True)
+            if model is not None and processed_df is not None:
+                # Download processed data button
+                csv = processed_df.to_csv(index=False)
+                b64 = base64.b64encode(csv.encode()).decode()
+                href = f'<a href="data:file/csv;base64,{b64}" download="processed_data.csv">Download processed data</a>'
+                st.markdown(href, unsafe_allow_html=True)
 if __name__ == "__main__":
     classification_app()
