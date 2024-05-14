@@ -83,11 +83,12 @@ def classification_main(df, importance_threshold, accuracy_threshold):
     
     X_cls=df_cls.iloc[:,:-1]
     y_cls=df_cls.iloc[:,-1]
-    scaler1_cls = StandardScaler()
-    X_scaled1_cls = scaler1_cls.fit_transform(X_cls)
-     
+    
     # Split data into training and testing sets for classification
-    X_train_cls, X_test_cls, y_train_cls, y_test_cls = train_test_split(X_scaled1_cls, y_cls, test_size=0.2, random_state=42)
+    X_train_cls, X_test_cls, y_train_cls, y_test_cls = train_test_split(X_cls, y_cls, test_size=0.2, random_state=42)
+    scaler1_cls = StandardScaler()
+    X_train_cls = scaler1_cls.fit_transform(X_train_cls)
+    X_test_cls=scalar1.transform(X_test_cls)
     prev_accuracy=0
     while True:
         # Train and evaluate Random Forest Classifier
@@ -103,9 +104,10 @@ def classification_main(df, importance_threshold, accuracy_threshold):
         df_cls = df_cls.drop(columns=[least_important_feature])
         X_cls=df_cls.iloc[:,:-1]
         y_cls=df_cls.iloc[:,-1]
+        X_train_cls, X_test_cls, y_train_cls, y_test_cls = train_test_split(X_cls, y_cls, test_size=0.2, random_state=42)
         scaler2_cls = StandardScaler()
-        X_scaled2_cls = scaler1_cls.fit_transform(X_cls)
-        X_train_cls, X_test_cls, y_train_cls, y_test_cls = train_test_split(X_scaled2_cls, y_cls, test_size=0.2, random_state=42)
+        X_train_cls = scaler2_cls.fit_transform(X_train_cls)
+        X_test_cls=scala2.transform(X_test_cls)
         
         # Update feature importance and previous accuracy
         rf_cls.fit(X_train_cls, y_train_cls)
