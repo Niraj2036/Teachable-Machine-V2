@@ -81,9 +81,10 @@ def regression_main(df, importance_threshold, r2_threshold):
     df_reg = drop_by_importance_threshold(df, feature_importance_reg, importance_threshold)
     X_reg=df_reg.iloc[:,:-1]
     y_reg=df_reg.iloc[:,-1]
+    X_train_reg, X_test_reg, y_train_reg, y_test_reg = train_test_split(X_reg, y_reg, test_size=0.2, random_state=42)
     scaler1_reg = StandardScaler()
-    X_scaled1_reg = scaler1_reg.fit_transform(X_reg)
-    X_train_reg, X_test_reg, y_train_reg, y_test_reg = train_test_split(X_scaled_reg, y_reg, test_size=0.2, random_state=42)
+    X_train_reg=scaler1.fit_transform(X_train_reg)
+    X_test_reg=scaler1.transform(X_test_reg)
     prev_r2=0
     while True:
         # Train and evaluate Random Forest Classifier
@@ -99,9 +100,10 @@ def regression_main(df, importance_threshold, r2_threshold):
         df_reg = df_reg.drop(columns=[least_important_feature])
         X_reg=df_reg.iloc[:,:-1]
         y_reg=df_reg.iloc[:,-1]
-        scaler1_reg = StandardScaler()
-        X_scaled1_reg = scaler1_reg.fit_transform(X_reg)
-        X_train_reg, X_test_reg, y_train_reg, y_test_reg = train_test_split(X_scaled_reg, y_reg, test_size=0.2, random_state=42)
+        X_train_reg, X_test_reg, y_train_reg, y_test_reg = train_test_split(X_reg, y_reg, test_size=0.2, random_state=42)
+        scaler2_reg = StandardScaler()
+        X_train_reg=scaler2.fit_transform(X_train_reg)
+        X_test_reg=scaler2.transform(X_test_reg)
         
         # Update feature importance and previous accuracy
         rf_reg.fit(X_train_reg, y_train_reg)
