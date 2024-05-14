@@ -82,7 +82,7 @@ def regression_main(df, importance_threshold, r2_threshold):
     X_reg=df_reg.iloc[:,:-1]
     y_reg=df_reg.iloc[:,-1]
     X_train_reg, X_test_reg, y_train_reg, y_test_reg = train_test_split(X_reg, y_reg, test_size=0.2, random_state=42)
-    scaler1_reg = StandardScaler()
+    scaler1 = StandardScaler()
     X_train_reg=scaler1.fit_transform(X_train_reg)
     X_test_reg=scaler1.transform(X_test_reg)
     prev_r2=0
@@ -101,7 +101,7 @@ def regression_main(df, importance_threshold, r2_threshold):
         X_reg=df_reg.iloc[:,:-1]
         y_reg=df_reg.iloc[:,-1]
         X_train_reg, X_test_reg, y_train_reg, y_test_reg = train_test_split(X_reg, y_reg, test_size=0.2, random_state=42)
-        scaler2_reg = StandardScaler()
+        scaler2 = StandardScaler()
         X_train_reg=scaler2.fit_transform(X_train_reg)
         X_test_reg=scaler2.transform(X_test_reg)
         
