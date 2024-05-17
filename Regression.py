@@ -109,11 +109,7 @@ def regression_main(df, importance_threshold, r2_threshold):
         rf_reg.fit(X_train_reg, y_train_reg)
         feature_importance_reg= feature_importance_cls[feature_importance_cls['Feature'] != least_important_feature]
         prev_r2 = rf_r2
-    
-    # Train and evaluate Random Forest Regressor
-    rf_regressor = RandomForestRegressor()
-    rf_regressor.fit(X_train_reg, y_train_reg)
-    rf_r2 = evaluate_regressor(rf_regressor, X_test_reg, y_test_reg)
+
 
     # Train and evaluate Linear Regression
     lr_regressor = LinearRegression()
@@ -131,10 +127,8 @@ def regression_main(df, importance_threshold, r2_threshold):
     dt_r2 = evaluate_regressor(dt_regressor, X_test_reg, y_test_reg)
 
     # return the best model (highest R^2) for regression and additional information
-    best_r2 = max([rf_r2, lr_r2, svm_r2, dt_r2])
-    if best_r2 == rf_r2:
-        return rf_regressor,df_reg
-    elif best_r2 == lr_r2:
+    best_r2 = max([ lr_r2, svm_r2, dt_r2])
+    if best_r2 == lr_r2:
         return lr_regressor,df_reg
     elif best_r2 == svm_r2:
         return svm_regressor,df_reg
