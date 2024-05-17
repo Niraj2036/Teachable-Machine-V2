@@ -114,13 +114,6 @@ def classification_main(df, importance_threshold, accuracy_threshold):
         feature_importance_cls = feature_importance_cls[feature_importance_cls['Feature'] != least_important_feature]
         prev_accuracy = rf_accuracy
 
-    
-
-    # Train and evaluate Random Forest Classifier
-    rf_classifier = RandomForestClassifier()
-    rf_classifier.fit(X_train_cls, y_train_cls)
-    rf_accuracy = evaluate_classifier(rf_classifier, X_test_cls, y_test_cls)
-
     # Train and evaluate Logistic Regression Classifier
     lr_classifier = LogisticRegression()
     lr_classifier.fit(X_train_cls, y_train_cls)
@@ -141,10 +134,8 @@ def classification_main(df, importance_threshold, accuracy_threshold):
     dt_classifier.fit(X_train_cls, y_train_cls)
     dt_accuracy = evaluate_classifier(dt_classifier, X_test_cls, y_test_cls)
     # Save the best model (highest accuracy) for classification
-    best_accuracy = max([rf_accuracy, lr_accuracy, svm_accuracy, nb_accuracy, dt_accuracy])
-    if best_accuracy == rf_accuracy:
-        return rf_classifier,df_cls
-    elif best_accuracy == lr_accuracy:
+    best_accuracy = max([lr_accuracy, svm_accuracy, nb_accuracy, dt_accuracy])
+    if best_accuracy == lr_accuracy:
         return lr_classifier,df_cls
     elif best_accuracy == svm_accuracy:
         return svm_classifier,df_cls
