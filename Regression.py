@@ -129,11 +129,11 @@ def regression_main(df, importance_threshold, r2_threshold):
     # return the best model (highest R^2) for regression and additional information
     best_r2 = max([ lr_r2, svm_r2, dt_r2])
     if best_r2 == lr_r2:
-        return lr_regressor,df_reg
+        return lr_regressor,df_reg,lr_r2
     elif best_r2 == svm_r2:
-        return svm_regressor,df_reg
+        return svm_regressor,df_reg,svm_r2
     elif best_r2 == dt_r2:
-        return dt_regressor,df_reg
+        return dt_regressor,df_reg,dt_r2
 def regression_app():
     st.title("Regression")
 
@@ -149,12 +149,13 @@ def regression_app():
 
         # Train model button
         if st.button("Train Model"):
-            model, processed_df = regression_main(df, 0.01, 0.001)
+            model, processed_df,r2 = regression_main(df, 0.01, 0.001)
             st.write("Model trained successfully!")
             st.session_state.model_trained = True
             if model is not None and processed_df is not None:
                 # Download trained model button
                 st.write("Download the trained model:")
+                st.write("The R2 score is:",r2)
                 model_filename = "trained_model.pkl"
                 joblib.dump(model, model_filename)
                 st.download_button(
