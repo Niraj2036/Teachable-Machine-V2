@@ -136,13 +136,13 @@ def classification_main(df, importance_threshold, accuracy_threshold):
     # Save the best model (highest accuracy) for classification
     best_accuracy = max([lr_accuracy, svm_accuracy, nb_accuracy, dt_accuracy])
     if best_accuracy == lr_accuracy:
-        return lr_classifier,df_cls
+        return lr_classifier,df_cls,lr_accuracy
     elif best_accuracy == svm_accuracy:
-        return svm_classifier,df_cls
+        return svm_classifier,df_cls,svm_accuracy
     elif best_accuracy == nb_accuracy:
-        return nb_classifier,df_cls
+        return nb_classifier,df_cls,nb_accuracy
     elif best_accuracy == dt_accuracy:
-        return dt_classifier,df_cls
+        return dt_classifier,df_cls,dt_accuracy
 def classification_app():
     st.title("Classification")
 
@@ -158,8 +158,9 @@ def classification_app():
 
         # Train model button
         if st.button("Train Model"):
-            model, processed_df = classification_main(df, 0.01, 0.001)
+            model, processed_df,accuracy = classification_main(df, 0.01, 0.001)
             st.write("Model trained successfully!")
+            st.write("The accuracy is:", accuracy)
             st.session_state.model_trained = True
             if model is not None and processed_df is not None:
                 # Download trained model button
